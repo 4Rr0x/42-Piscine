@@ -3,21 +3,15 @@
 int	ft_sqrt(int nb)
 {
 	int	i;
-	int	div;
 
-	i = 1;
-	div = -1;
-	if (nb < 0 || nb == 0)
-		return (0);
+	i = 0;
 	if (nb == 1)
 		return (1);
-	while (i != div && i < nb && (i * i) != nb)
+	while (i < nb)
 	{
+		if (i * i == nb)
+			return (nb);
 		i++;
-		div = nb / i;
 	}
-	if (i == div)
-		return (i);
-	else
-		return (0);
+	return (0);
 }
