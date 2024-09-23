@@ -43,25 +43,25 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 {
 	char	*str;
 	char	*temp;
-	int		num1;
+	int		num;
 
-	num1 = 0;
+	num = 0;
 	if (size == 0)
 		return ((char *)malloc(sizeof(char)));
 	str = (char *)malloc(sizeof(char) * (ft_lenstrs(size, strs, sep) + 1));
 	if (!str)
 		return (0);
 	temp = str;
-	while (num1 < size)
+	while (num < size)
 	{
-		ft_strcpy(temp, strs[num1]);
-		temp += ft_strlen(strs[num1]);
-		if (num1 < size -1)
+		ft_strcpy(temp, strs[num]);
+		temp += ft_strlen(strs[num]);
+		if (num < size -1)
 		{
 			ft_strcpy(temp, sep);
 			temp += ft_strlen(sep);
 		}
-		num1++;
+		num++;
 	}
 	*temp = '\0';
 	return (str);
