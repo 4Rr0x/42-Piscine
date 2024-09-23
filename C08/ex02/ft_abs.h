@@ -2,6 +2,12 @@
 
 #define FT_ABS_H
 
-#define ABS(value) (Value < 0 ? -Value : Value)
+#define ABS(value) is_neg(value)
+static inline int is_neg(int x) {
+	if (x < 0)
+		return (-value);
+	else
+		return (value);
+}
 
 #endif
