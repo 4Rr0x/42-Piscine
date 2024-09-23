@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#define "ft_stock_str.h"
+#include "ft_stock_str.h"
 
 int	ft_strlen(char *str)
 {
@@ -34,7 +34,6 @@ struct s_stock_str *ft_strs_to_tab(int ac, char **av)
 {
 	int	i;
 	struct s_stock_str *array;
-	struct s_stock_str *d;
 
 	i = 0;
 	array = malloc((ac + 1) * sizeof(struct s_stock_str));

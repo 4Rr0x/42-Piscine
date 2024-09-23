@@ -5,9 +5,9 @@
 #define ABS(value) is_neg(value)
 static inline int is_neg(int x) {
 	if (x < 0)
-		return (-value);
+		return (-x);
 	else
-		return (value);
+		return (x);
 }
 
 #endif
