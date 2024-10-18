@@ -1,76 +1,103 @@
-char	*sep_word(char *str, char *charset)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jopedro- <jopedro-@student.42porto.co      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/26 17:33:07 by jopedro-          #+#    #+#             */
+/*   Updated: 2024/09/26 17:34:27 by jopedro-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int	ft_strncmp(char c, char *s2)
 {
 	int	i;
-	int	j;
-	char *string;
 
 	i = 0;
-	j = 0;
-	while (str[i] != '\0' && !check_sep)
-	{	
+	while (s2[i] != '\0')
+	{
+		if (c == s2[i])
+			return (0);
 		i++;
 	}
-	string = (char *)malloc(sizeof(char) * i);
-	while (j < i)
-	{
-		string[j] = str[j];
-		j++;
-	}
-	return (string);
+	return (1);
 }
 
-int	check_sep(char c, char *charset)
-{
-	int	i;
-
-	while (charset[i] != '\0')
-	{
-		if (charset[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	count_words(char *str, char *charset)
+int	ft_strcount(char *str, char *charset)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
-		while (str[i] != '\0' && check_sep(str[i], charset))
+		while (str[i] && !(ft_strncmp(str[i], charset)))
 			i++;
-		if (str[i] != '\0')
+		if (str[i])
 			count++;
-		while (str[i] != '\0' && !check_sep(str[i], charset))
+		while (str[i] && (ft_strncmp(str[i], charset)))
 			i++;
 	}
 	return (count);
 }
 
-char **ft_split(char *str, char *charset)
+int	ft_strlen(char *str, char *charset)
 {
 	int	i;
-	char **arr;
 
 	i = 0;
-	arr = (char **)malloc(sizeof(char *) * count_words(str, charset));
-	while (*str != '\0')
+	while (str[i] && (ft_strncmp(str[i], charset)))
 	{
-		while (str != '\0' && check_sep(*str, charset)
-			str++;
-		if (*str != '\0')
-		{
-			arr[i] = sep_word(str, charset);
-			i++;
-		}
-		while (str != '\0'&& !check_sep(*str, charset)
-			str++;
+		i++;
 	}
-	arr[i] = 0;
-	return (arr);
+	return (i);
 }
 
+char	*ft_print_word(char *str, char *charset)
+{
+	int		i;
+	int		lenstr;
+	char	*array;
+
+	i = 0;
+	lenstr = ft_strlen(str, charset);
+	array = (char *)malloc((lenstr + 1) * sizeof(char));
+	while (str[i] && (ft_strncmp(str[i], charset)))
+	{
+		array[i] = str[i];
+		i++;
+	}
+	array[i] = '\0';
+	return (array);
+}
+
+char	**ft_split(char *str, char *charset)
+{
+	int		i;
+	int		j;
+	char	**array;
+	int		count;
+
+	i = 0;
+	j = 0;
+	count = ft_strcount(str, charset);
+	array = (char **)malloc((count + 1) * sizeof(char *));
+	while (str[i] && j < count)
+	{
+		while (str[i] && !(ft_strncmp(str[i], charset)))
+			i++;
+		if (str[i])
+		{
+			array[j] = ft_print_word((str + i), charset);
+			j++;
+		}
+		while (str[i] && (ft_strncmp(str[i], charset)))
+			i++;
+	}
+	array[j] = 0;
+	return (array);
+}
